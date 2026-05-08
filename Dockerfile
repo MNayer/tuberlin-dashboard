@@ -1,13 +1,14 @@
 FROM debian:trixie
 
-RUN apt-get update && \
-  apt-get upgrade -y && \
-  apt-get install -y \
-  python3 \
-  python3-pip \
-  python3-flask \
-  python3-pandas \
-  python3-Jinja2
+RUN apt-get update
+RUN apt-get upgrade -y
+RUN apt-get install -y
+RUN apt-get install -y python3
+RUN apt-get install -y python3-pip
+RUN apt-get install -y python3-flask
+RUN apt-get install -y python3-pandas
+RUN apt-get install -y python3-jinja2
+RUN apt-get install -y python3-gunicorn
 
 COPY app /app/
 WORKDIR /app/
