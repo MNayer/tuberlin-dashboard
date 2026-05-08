@@ -1,0 +1,12 @@
+services:
+  trip:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/data/
+    networks:
+      - caddy_net
+
+networks:
+  caddy_net:
+    external: true

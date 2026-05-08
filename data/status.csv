@@ -1,0 +1,10 @@
+﻿Kuerzel,Name,Adresse,Campus,status
+H,Hauptgebäude,Straße des 17. Juni 135,Charlottenburg,healthy
+MA,Mathematikgebäude,Straße des 17. Juni 136,Charlottenburg,healthy
+EW,Physikgebäude (Wigner-Bau),Hardenbergstraße 36,Charlottenburg,impaired
+EB,Erweiterungsbau,Straße des 17. Juni 145,Charlottenburg,healthy
+TEL,Telefunken-Hochhaus,Ernst-Reuter-Platz 7,Charlottenburg,closed
+MAR,Marchstraße (Informatik),Marchstraße 23,Charlottenburg,healthy
+BIB,VW-Bibliothek,Fasanenstraße 88,Charlottenburg,healthy
+ACK,Ackerstraße,Ackerstraße 76,Wedding,healthy
+C,Chemiegebäude,Straße des 17. Juni 115,Charlottenburg,impaired
