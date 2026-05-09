@@ -1,10 +1,82 @@
-﻿Kuerzel,Name,Adresse,Campus,status
-H,Hauptgebäude,Straße des 17. Juni 135,Charlottenburg,closed
-MA,Mathematikgebäude,Straße des 17. Juni 136,Charlottenburg,impaired
-EW,Physikgebäude (Wigner-Bau),Hardenbergstraße 36,Charlottenburg,impaired
-EB,Erweiterungsbau,Straße des 17. Juni 145,Charlottenburg,healthy
-TEL,Telefunken-Hochhaus,Ernst-Reuter-Platz 7,Charlottenburg,closed
-MAR,Marchstraße (Informatik),Marchstraße 23,Charlottenburg,healthy
-BIB,VW-Bibliothek,Fasanenstraße 88,Charlottenburg,healthy
-ACK,Ackerstraße,Ackerstraße 76,Wedding,healthy
-C,Chemiegebäude,Straße des 17. Juni 115,Charlottenburg,impaired
+Kuerzel,Name,Adresse,Campus,status,is_major,news_link
+H,Hauptgebäude,Straße des 17. Juni 135,Charlottenburg,closed,true,https://www.tu.berlin/nachrichtendetails/hauptgebaeude-muss-ab-9-mai-2026-schliessen
+MA,Mathematik-Gebäude,Straße des 17. Juni 136,Charlottenburg,impaired,true,https://www.tu.berlin/arbeits-umweltschutz/arbeitsschutz/spezifische-themen/weitere-spezifische-themen/teiloeffnung-mathe-gebaeude
+MATH,Mathematik Neubau,Fasanenstraße 90,Charlottenburg,closed,true,https://www.tu.berlin/facilities/services/baumassnahmen/neubau-mathematikgebaeude
+EW,Eugene-Paul-Wigner-Gebäude (Physik),Hardenbergstraße 36,Charlottenburg,impaired,true,
+EB,Erweiterungsbau,Straße des 17. Juni 145,Charlottenburg,healthy,true,
+TEL,Telefunken-Hochhaus,Ernst-Reuter-Platz 7,Charlottenburg,closed,true,https://www.tu.berlin/en/campusmanagement/news-details/16042024-wasserschaden-im-tel-gebaeude-update
+MAR,Gebäude Marchstraße,Marchstraße 23,Charlottenburg,healthy,true,
+BIB,Universitätsbibliothek im Volkswagenhaus,Fasanenstraße 88,Charlottenburg,healthy,true,
+C,Chemiegebäude,Straße des 17. Juni 115,Charlottenburg,impaired,true,https://www.tu.berlin/nachrichtendetails/wasserschaden-im-chemiegebaeude
+A-F,Architekturgebäude (Flachbau),Straße des 17. Juni 152,Charlottenburg,healthy,true,
+A-H,Architekturgebäude (Hochhaus),Straße des 17. Juni 152,Charlottenburg,healthy,true,
+E-N,Elektrotechnik-Neubau,Einsteinufer 17,Charlottenburg,healthy,true,
+TC,Gebäude Technische Chemie,Straße des 17. Juni 124,Charlottenburg,healthy,true,
+AM,Alte Mineralogie,Hardenbergstraße 38,Charlottenburg,healthy,false,
+B,Bauingenieurgebäude,Hardenbergstraße 40A,Charlottenburg,healthy,false,
+BA,Alter Bauingenieurflügel,Hardenbergstraße 40,Charlottenburg,healthy,false,
+BEL,Villa Bell,Marchstraße 6 u. 8,Charlottenburg,healthy,false,
+BH-A,Gebäude Bergbau- u. Hüttenwesen (Altbau),Ernst-Reuter-Platz 1,Charlottenburg,healthy,false,
+BH-N,Gebäude Bergbau- u. Hüttenwesen (Neubau),Ernst-Reuter-Platz 1,Charlottenburg,healthy,false,
+CIF,Chemical Invention Factory,Marchstraße 18,Charlottenburg,healthy,false,
+E,Gebäude der Elektrotechnischen Institute,Einsteinufer 19,Charlottenburg,healthy,false,
+EMH,Gebäude Elektrische Maschinen und Hochspannungstechnik,Einsteinufer 11,Charlottenburg,healthy,false,
+ER,Ernst-Ruska-Gebäude,Hardenbergstraße 36A,Charlottenburg,healthy,false,
+F,Gebäude Flugtechnik,"Marchstraße 12, 12A, 12B, 14",Charlottenburg,healthy,false,
+FH,Gebäude Fraunhoferstraße,Fraunhoferstraße 33-36,Charlottenburg,healthy,false,
+FR,Gebäude Franklinstraße,Franklinstraße 28-29,Charlottenburg,healthy,false,
+HBS,Gebäude Hardenbergstraße,Hardenbergstraße 16-18,Charlottenburg,healthy,false,
+HE,Hörsaalgebäude Elektrotechnik,Straße des 17. Juni 136,Charlottenburg,healthy,false,
+HF,Hermann-Föttinger-Gebäude,Müller-Breslau-Straße 8,Charlottenburg,healthy,false,
+HFT-TA,Gebäude Hochfrequenz- und Fernmeldetechnik u. Technische Akustik,Einsteinufer 25,Charlottenburg,healthy,false,
+HL,Gebäude Heizung und Lüftung,Marchstraße 4,Charlottenburg,healthy,false,
+IMoS,Interdisziplinäres Zentrum für Modellierung und Simulation,Fasanenstraße 89,Charlottenburg,healthy,false,
+K,Gebäudeteil Kraftfahrzeuge,Straße des 17. Juni 135,Charlottenburg,healthy,false,
+KF,Ehem. Kraft- und Fernheizwerk,Fasanenstraße 1A,Charlottenburg,healthy,false,
+KPK,Kompaktzyklotron-Bunker,Hardenbergstraße 36,Charlottenburg,healthy,false,
+KT,Kerntechnikgebäude,Marchstraße 18,Charlottenburg,healthy,false,
+KWT,Gebäude Kraftwerkstechnik u. Apparatebau,Fasanenstraße 1,Charlottenburg,healthy,false,
+L,Gebäude Lebensmittelchemie,Müller-Breslau-Straße 10,Charlottenburg,healthy,false,
+M,Gebäudeteil Mechanik,Straße des 17. Juni 135,Charlottenburg,healthy,false,
+MS,Gebäude Mechanische Schwingungslehre,Einsteinufer 5,Charlottenburg,healthy,false,
+PC,Gebäude Physikalische Chemie,Straße des 17. Juni 135,Charlottenburg,healthy,false,
+SE-RH,Reuleaux-Haus (Stadtbau-/Verkehrs-/Eisenbahnwesen),Straße des 17. Juni 135,Charlottenburg,healthy,false,
+TAP,Technische Akustik Prüfhalle,Einsteinufer 31,Charlottenburg,healthy,false,
+TEM,Transmissionselektronenmikroskopie,Marchstraße 10,Charlottenburg,healthy,false,
+TK,Gebäude Thermodynamik und Kältetechnik,Straße des 17. Juni 135,Charlottenburg,healthy,false,
+TUL,TULIUM - TU Pavillon,Straße des 17. Juni 135,Charlottenburg,healthy,false,
+V,Gebäudeteil Verformungskunde,Straße des 17. Juni 135,Charlottenburg,healthy,false,
+VWS,Versuchsanstalt für Wasser- und Schiffsbau (Schleuseninsel),Müller-Breslau-Straße 15,Charlottenburg,healthy,false,
+W,Gebäude Wasserbau u. Wasserwirtschaft,"Straße des 17. Juni 144, 144A",Charlottenburg,healthy,false,
+Z,Gebäudeteil Zentrale Dienste,Straße des 17. Juni 135,Charlottenburg,healthy,false,
+ACK,Ackerstraße,"Ackerstraße 76, 13355 Berlin",Wedding,healthy,true,
+TIB10,"Humboldthain, Gebäude 10","Gustav-Meyer-Allee 25, 13355 Berlin",Wedding,healthy,false,
+TIB13,"Humboldthain, Gebäude 13","Gustav-Meyer-Allee 25, 13355 Berlin",Wedding,healthy,false,
+TIB13b,"Humboldthain, Gebäude 13b","Gustav-Meyer-Allee 25, 13355 Berlin",Wedding,healthy,false,
+TIB15,"Humboldthain, Gebäude 15","Gustav-Meyer-Allee 25, 13355 Berlin",Wedding,healthy,false,
+TIB16,"Humboldthain, Gebäude 16","Gustav-Meyer-Allee 25, 13355 Berlin",Wedding,healthy,false,
+TIB17,"Humboldthain, Gebäude 17","Gustav-Meyer-Allee 25, 13355 Berlin",Wedding,healthy,false,
+TIB17a,"Humboldthain, Gebäude 17a","Gustav-Meyer-Allee 25, 13355 Berlin",Wedding,impaired,true,https://www.tu.berlin/en/about/campus-ost
+TIB17b,"Humboldthain, Gebäude 17b","Gustav-Meyer-Allee 25, 13355 Berlin",Wedding,healthy,false,
+TIB20,"Humboldthain, Gebäude 20","Gustav-Meyer-Allee 25, 13355 Berlin",Wedding,healthy,false,
+TIB21,"Humboldthain, Gebäude 21","Gustav-Meyer-Allee 25, 13355 Berlin",Wedding,healthy,false,
+TIB25,"Humboldthain, Gebäude 25","Gustav-Meyer-Allee 25, 13355 Berlin",Wedding,healthy,false,
+SG01,"Severingelände, Gebäude 01","Salzufer 17-19, 10587 Berlin",Salzufer,healthy,false,
+SG02,"Severingelände, Gebäude 02","Salzufer 17-19, 10587 Berlin",Salzufer,healthy,false,
+SG03,"Severingelände, Gebäude 03","Salzufer 17-19, 10587 Berlin",Salzufer,healthy,false,
+SG04,"Severingelände, Gebäude 04","Salzufer 18, 10587 Berlin",Salzufer,healthy,false,
+SG05,"Severingelände, Gebäude 05","Salzufer 17-19, 10587 Berlin",Salzufer,healthy,false,
+SG06,"Severingelände, Gebäude 06","Salzufer 17-19, 10587 Berlin",Salzufer,healthy,false,
+SG07,"Severingelände, Gebäude 07","Dovestraße 6, 10587 Berlin",Salzufer,healthy,false,
+SG08,"Severingelände, Gebäude 08","Dovestraße 6, 10587 Berlin",Salzufer,healthy,false,
+SG09,"Severingelände, Gebäude 09","Dovestraße 6, 10587 Berlin",Salzufer,healthy,false,
+SG10,"Severingelände, Gebäude 10","Salzufer 17-19, 10587 Berlin",Salzufer,healthy,false,
+SG11,"Severingelände, Gebäude 11","Salzufer 17-19, 10587 Berlin",Salzufer,healthy,false,
+SG12,"Severingelände, Gebäude 12","Salzufer 17-19, 10587 Berlin",Salzufer,healthy,false,
+SG13,"Severingelände, Gebäude 13","Salzufer 17-19, 10587 Berlin",Salzufer,healthy,false,
+GG,Gärungsgewerbe-Biotechnologie (Alt- u. Neubau),"Seestraße 13, 13353 Berlin",Seestraße,closed,true,https://www.tu.berlin/en/about/campus-ost
+SIM,Simulierter Mensch,"Amrumer Straße 31, 13353 Berlin",Seestraße,healthy,false,
+CAR-B,Carnotstraße (Bürocenter),"Carnotstraße 1A, 10587 Berlin",Spree-Ufer,healthy,false,
+KAA,Kaiserin-Augusta-Allee 14,"Kaiserin-Augusta-Allee 14, 10553 Berlin",Spree-Ufer,healthy,false,
+KAI,Kaiserin-Augusta-Allee 104,"Kaiserin-Augusta-Allee 104, 10553 Berlin",Spree-Ufer,healthy,false,
+PTZ,Produktionstechnisches Zentrum (Doppelinstitut am Spreebogen),"Pascalstraße 8-9, 13-14, 10587 Berlin",Spree-Ufer,healthy,true,
