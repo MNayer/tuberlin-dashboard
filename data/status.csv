@@ -1,4 +1,4 @@
-Kuerzel,Name,Adresse,Campus,status,is_major,news_link
+﻿Kuerzel,Name,Adresse,Campus,status,is_major,news_link
 H,Hauptgebäude,Straße des 17. Juni 135,Charlottenburg,closed,true,https://www.tu.berlin/nachrichtendetails/hauptgebaeude-muss-ab-9-mai-2026-schliessen
 MA,Mathematik-Gebäude,Straße des 17. Juni 136,Charlottenburg,impaired,true,https://www.tu.berlin/arbeits-umweltschutz/arbeitsschutz/spezifische-themen/weitere-spezifische-themen/teiloeffnung-mathe-gebaeude
 MATH,Mathematik Neubau,Fasanenstraße 90,Charlottenburg,closed,true,https://www.tu.berlin/facilities/services/baumassnahmen/neubau-mathematikgebaeude
@@ -8,10 +8,10 @@ TEL,Telefunken-Hochhaus,Ernst-Reuter-Platz 7,Charlottenburg,closed,true,https://
 MAR,Gebäude Marchstraße,Marchstraße 23,Charlottenburg,healthy,true,
 BIB,Universitätsbibliothek im Volkswagenhaus,Fasanenstraße 88,Charlottenburg,healthy,true,
 C,Chemiegebäude,Straße des 17. Juni 115,Charlottenburg,impaired,true,https://www.tu.berlin/nachrichtendetails/wasserschaden-im-chemiegebaeude
-A-F,Architekturgebäude (Flachbau),Straße des 17. Juni 152,Charlottenburg,healthy,true,
-A-H,Architekturgebäude (Hochhaus),Straße des 17. Juni 152,Charlottenburg,healthy,true,
+A-F,Architekturgebäude (Flachbau),Straße des 17. Juni 152,Charlottenburg,impaired,true,https://intranet.tu-berlin.de
+A-H,Architekturgebäude (Hochhaus),Straße des 17. Juni 152,Charlottenburg,impaired,true,https://intranet.tu-berlin.de
 E-N,Elektrotechnik-Neubau,Einsteinufer 17,Charlottenburg,healthy,true,
-TC,Gebäude Technische Chemie,Straße des 17. Juni 124,Charlottenburg,healthy,true,
+TC,Gebäude Technische Chemie,Straße des 17. Juni 124,Charlottenburg,closed,true,https://intranet.tu-berlin.de
 AM,Alte Mineralogie,Hardenbergstraße 38,Charlottenburg,healthy,false,
 B,Bauingenieurgebäude,Hardenbergstraße 40A,Charlottenburg,healthy,false,
 BA,Alter Bauingenieurflügel,Hardenbergstraße 40,Charlottenburg,healthy,false,
@@ -19,9 +19,9 @@ BEL,Villa Bell,Marchstraße 6 u. 8,Charlottenburg,healthy,false,
 BH-A,Gebäude Bergbau- u. Hüttenwesen (Altbau),Ernst-Reuter-Platz 1,Charlottenburg,healthy,false,
 BH-N,Gebäude Bergbau- u. Hüttenwesen (Neubau),Ernst-Reuter-Platz 1,Charlottenburg,healthy,false,
 CIF,Chemical Invention Factory,Marchstraße 18,Charlottenburg,healthy,false,
-E,Gebäude der Elektrotechnischen Institute,Einsteinufer 19,Charlottenburg,healthy,false,
+E,Gebäude der Elektrotechnischen Institute,Einsteinufer 19,Charlottenburg,impaired,false,https://intranet.tu-berlin.de
 EMH,Gebäude Elektrische Maschinen und Hochspannungstechnik,Einsteinufer 11,Charlottenburg,healthy,false,
-ER,Ernst-Ruska-Gebäude,Hardenbergstraße 36A,Charlottenburg,healthy,false,
+ER,Ernst-Ruska-Gebäude,Hardenbergstraße 36A,Charlottenburg,impaired,false,https://intranet.tu-berlin.de
 F,Gebäude Flugtechnik,"Marchstraße 12, 12A, 12B, 14",Charlottenburg,healthy,false,
 FH,Gebäude Fraunhoferstraße,Fraunhoferstraße 33-36,Charlottenburg,healthy,false,
 FR,Gebäude Franklinstraße,Franklinstraße 28-29,Charlottenburg,healthy,false,
