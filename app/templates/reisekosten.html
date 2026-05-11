@@ -102,39 +102,39 @@
 <div class="hidden sm:block bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
     <table class="w-full text-left border-collapse table-fixed">
         <colgroup>
-            <col class="w-[26%]">
-            <col class="w-[14%]">
-            <col class="w-[14%]">
+            <col class="w-[24%]">
+            <col class="w-[12%]">
+            <col class="w-[12%]">
             <col class="w-[10%] hidden md:table-column">
             <col class="w-[14%]">
-            <col class="w-[14%]">
-            <col class="w-[8%]">
+            <col class="w-[16%]">
+            <col class="w-[12%]">
         </colgroup>
         <thead class="bg-gray-50 border-b border-gray-200">
             <tr>
-                <th class="px-4 lg:px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Reise</th>
-                <th class="px-4 lg:px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Antrag</th>
-                <th class="px-4 lg:px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Erstattet</th>
-                <th class="px-4 lg:px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider hidden md:table-cell">Dauer</th>
-                <th class="px-4 lg:px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">Kosten</th>
-                <th class="px-4 lg:px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">Status</th>
-                <th class="px-4 lg:px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider text-right"></th>
+                <th class="px-3 lg:px-4 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Reise</th>
+                <th class="px-3 lg:px-4 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Antrag</th>
+                <th class="px-3 lg:px-4 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Erstattet</th>
+                <th class="px-3 lg:px-4 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider hidden md:table-cell">Dauer</th>
+                <th class="px-3 lg:px-4 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">Kosten</th>
+                <th class="px-3 lg:px-4 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">Status</th>
+                <th class="px-3 lg:px-4 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider text-right"></th>
             </tr>
         </thead>
         <tbody class="divide-y divide-gray-100">
             {% for it in items %}
             <tr class="{{ 'bg-rose-50/40' if it.overdue }}">
-                <td class="px-4 lg:px-6 py-4 lg:py-5">
+                <td class="px-3 lg:px-4 py-4 lg:py-5 align-top">
                     <div class="font-bold text-gray-900 leading-tight break-words">{{ it.destination }}</div>
                 </td>
-                <td class="px-4 lg:px-6 py-4 lg:py-5 text-sm text-gray-600">{{ it.antrag_date }}</td>
-                <td class="px-4 lg:px-6 py-4 lg:py-5 text-sm text-gray-600">
+                <td class="px-3 lg:px-4 py-4 lg:py-5 align-top text-sm text-gray-600">{{ it.antrag_date }}</td>
+                <td class="px-3 lg:px-4 py-4 lg:py-5 align-top text-sm text-gray-600">
                     {% if it.erstattungsdatum %}{{ it.erstattungsdatum }}{% else %}<span class="text-gray-300">—</span>{% endif %}
                 </td>
-                <td class="px-4 lg:px-6 py-4 lg:py-5 text-sm text-gray-600 hidden md:table-cell">
+                <td class="px-3 lg:px-4 py-4 lg:py-5 align-top text-sm text-gray-600 hidden md:table-cell">
                     {% if it.processing_days is not none %}{{ it.processing_days }} d{% else %}<span class="text-gray-300">—</span>{% endif %}
                 </td>
-                <td class="px-4 lg:px-6 py-4 lg:py-5 text-right text-sm">
+                <td class="px-3 lg:px-4 py-4 lg:py-5 align-top text-right text-sm">
                     {% if it.amount is not none %}
                         <div class="font-semibold">{{ '%.2f €' % it.amount }}</div>
                         {% if it.outstanding > 0 %}
@@ -144,17 +144,20 @@
                         <span class="text-gray-300">—</span>
                     {% endif %}
                 </td>
-                <td class="px-4 lg:px-6 py-4 lg:py-5 text-right">
-                    <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap
+                <td class="px-3 lg:px-4 py-4 lg:py-5 align-top text-right">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] lg:text-xs font-bold uppercase tracking-wider whitespace-nowrap
                         {% if it.status == 'settled' %} bg-emerald-100 text-emerald-700
                         {% elif it.overdue %} bg-rose-100 text-rose-700
                         {% else %} bg-blue-100 text-blue-700 {% endif %}">
-                        {{ it.status_label }}{% if it.overdue %} · Überfällig{% endif %}
+                        {{ it.status_label }}
                     </span>
+                    {% if it.overdue %}
+                        <div class="text-[10px] uppercase tracking-wider text-rose-600 font-bold mt-1">Überfällig</div>
+                    {% endif %}
                 </td>
-                <td class="px-4 lg:px-6 py-4 lg:py-5 text-right">
+                <td class="px-3 lg:px-4 py-4 lg:py-5 align-top text-right">
                     {% if it.is_mine %}
-                        <a href="{{ url_for('reisekosten.edit', rid=it.id) }}" class="text-xs text-blue-600 font-semibold hover:underline">Bearbeiten</a>
+                        <a href="{{ url_for('reisekosten.edit', rid=it.id) }}" class="text-xs text-blue-600 font-semibold hover:underline whitespace-nowrap">Bearbeiten</a>
                     {% endif %}
                 </td>
             </tr>
