@@ -1,0 +1,59 @@
+{% extends 'admin/base.html' %}
+{% block title %}Admin · Gebäude{% endblock %}
+{% block heading %}Gebäude verwalten{% endblock %}
+
+{% block admin_content %}
+<div class="flex justify-end mb-4">
+    <a href="{{ url_for('admin.buildings_new') }}"
+       class="px-4 py-2 rounded-lg bg-gray-900 text-white text-sm font-semibold hover:bg-gray-700">
+        + Neues Gebäude
+    </a>
+</div>
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+            <thead class="bg-gray-50 border-b border-gray-200">
+                <tr>
+                    <th class="px-4 py-3 text-xs font-bold text-gray-400 uppercase tracking-wider">Kürzel</th>
+                    <th class="px-4 py-3 text-xs font-bold text-gray-400 uppercase tracking-wider">Name</th>
+                    <th class="px-4 py-3 text-xs font-bold text-gray-400 uppercase tracking-wider hidden md:table-cell">Campus</th>
+                    <th class="px-4 py-3 text-xs font-bold text-gray-400 uppercase tracking-wider">Status</th>
+                    <th class="px-4 py-3 text-xs font-bold text-gray-400 uppercase tracking-wider hidden lg:table-cell text-right">Plätze / m²</th>
+                    <th class="px-4 py-3 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">Aktionen</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                {% for b in buildings %}
+                <tr>
+                    <td class="px-4 py-3 font-bold text-gray-800">{{ b.kuerzel }}{% if b.is_major %} <span class="text-amber-500" title="Hauptgebäude">★</span>{% endif %}</td>
+                    <td class="px-4 py-3 text-sm">{{ b.name }}</td>
+                    <td class="px-4 py-3 text-sm hidden md:table-cell">{{ b.campus or '—' }}</td>
+                    <td class="px-4 py-3">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap
+                            {% if b.status == 'healthy' %} bg-emerald-100 text-emerald-700
+                            {% elif b.status == 'impaired' %} bg-amber-100 text-amber-700
+                            {% else %} bg-rose-100 text-rose-700 {% endif %}">
+                            {{ b.status }}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3 text-sm text-right hidden lg:table-cell">
+                        {{ b.workplaces if b.workplaces is not none else '—' }} / {{ '%.0f' % b.size_sqm if b.size_sqm is not none else '—' }}
+                    </td>
+                    <td class="px-4 py-3 text-right">
+                        <div class="inline-flex gap-2">
+                            <a href="{{ url_for('admin.buildings_edit', bid=b.id) }}"
+                               class="text-blue-600 hover:underline text-sm font-semibold">Bearbeiten</a>
+                            <form action="{{ url_for('admin.buildings_delete', bid=b.id) }}" method="post"
+                                  onsubmit="return confirm('Gebäude wirklich löschen?')">
+                                <button class="text-rose-600 hover:underline text-sm font-semibold">Löschen</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

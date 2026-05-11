@@ -1,0 +1,23 @@
+{% extends 'admin/base.html' %}
+{% block title %}Admin · TU Berlin{% endblock %}
+{% block heading %}Übersicht{% endblock %}
+
+{% block admin_content %}
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <a href="{{ url_for('admin.buildings_list') }}"
+       class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <p class="text-xs uppercase tracking-wider text-gray-400 font-bold mb-1">Gebäude</p>
+        <p class="text-3xl font-semibold text-gray-800">{{ buildings_count }}</p>
+    </a>
+    <a href="{{ url_for('admin.suggestions_list') }}"
+       class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <p class="text-xs uppercase tracking-wider text-gray-400 font-bold mb-1">Offene Vorschläge</p>
+        <p class="text-3xl font-semibold {% if pending_suggestions %}text-amber-600{% else %}text-gray-800{% endif %}">{{ pending_suggestions }}</p>
+    </a>
+    <a href="{{ url_for('admin.reisekosten_list') }}"
+       class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <p class="text-xs uppercase tracking-wider text-gray-400 font-bold mb-1">Reisekostenanträge</p>
+        <p class="text-3xl font-semibold text-gray-800">{{ reisekosten_count }}</p>
+    </a>
+</div>
+{% endblock %}

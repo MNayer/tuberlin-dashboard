@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div>
+        <p class="text-xs uppercase tracking-wider text-amber-700 font-bold">Admin</p>
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">{% block heading %}Admin{% endblock %}</h1>
+    </div>
+    <div class="flex flex-wrap gap-1 sm:gap-2 text-sm">
+        <a href="{{ url_for('admin.dashboard') }}"
+           class="px-3 py-1.5 rounded-md font-semibold {% if request.endpoint == 'admin.dashboard' %}bg-gray-900 text-white{% else %}text-gray-600 hover:bg-gray-100{% endif %}">Übersicht</a>
+        <a href="{{ url_for('admin.buildings_list') }}"
+           class="px-3 py-1.5 rounded-md font-semibold {% if request.endpoint and 'buildings' in request.endpoint and request.endpoint.startswith('admin.') %}bg-gray-900 text-white{% else %}text-gray-600 hover:bg-gray-100{% endif %}">Gebäude</a>
+        <a href="{{ url_for('admin.suggestions_list') }}"
+           class="px-3 py-1.5 rounded-md font-semibold {% if request.endpoint and 'suggestions' in request.endpoint %}bg-gray-900 text-white{% else %}text-gray-600 hover:bg-gray-100{% endif %}">Vorschläge</a>
+        <a href="{{ url_for('admin.reisekosten_list') }}"
+           class="px-3 py-1.5 rounded-md font-semibold {% if request.endpoint and 'reisekosten' in request.endpoint and request.endpoint.startswith('admin.') %}bg-gray-900 text-white{% else %}text-gray-600 hover:bg-gray-100{% endif %}">Reisekosten</a>
+        <form action="{{ url_for('admin.logout') }}" method="post" class="inline">
+            <button class="px-3 py-1.5 rounded-md text-gray-600 hover:bg-gray-100 font-semibold">Admin Logout</button>
+        </form>
+    </div>
+</div>
+
+{% block admin_content %}{% endblock %}
+{% endblock %}

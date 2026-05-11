@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TU Berlin Dashboard{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
+        .status-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+<nav class="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-center justify-between gap-y-2 py-3">
+            <a href="{{ url_for('buildings.index') }}" class="flex items-center gap-2">
+                <span class="inline-block w-2.5 h-2.5 rounded-full bg-gray-900"></span>
+                <span class="font-bold text-gray-900 tracking-tight">TU Berlin Dashboard</span>
+            </a>
+            <div class="flex flex-wrap items-center gap-1 sm:gap-2 text-sm">
+                <a href="{{ url_for('buildings.index') }}"
+                   class="px-3 py-1.5 rounded-md font-semibold {% if request.endpoint and request.endpoint.startswith('buildings.') %}bg-gray-900 text-white{% else %}text-gray-600 hover:bg-gray-100{% endif %}">
+                    Gebäude
+                </a>
+                <a href="{{ url_for('reisekosten.index') }}"
+                   class="px-3 py-1.5 rounded-md font-semibold {% if request.endpoint and request.endpoint.startswith('reisekosten.') %}bg-gray-900 text-white{% else %}text-gray-600 hover:bg-gray-100{% endif %}">
+                    Reisekosten
+                </a>
+                {% if current_user_email %}
+                    <span class="hidden sm:inline text-gray-400 px-2 truncate max-w-[10rem]" title="{{ current_user_email }}">{{ current_user_email }}</span>
+                    <form action="{{ url_for('auth.logout') }}" method="post" class="inline">
+                        <button class="px-3 py-1.5 rounded-md text-gray-600 hover:bg-gray-100 font-semibold">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}"
+                       class="px-3 py-1.5 rounded-md text-gray-600 hover:bg-gray-100 font-semibold">Login</a>
+                {% endif %}
+                {% if is_admin %}
+                    <a href="{{ url_for('admin.dashboard') }}"
+                       class="px-3 py-1.5 rounded-md font-semibold bg-amber-100 text-amber-800 hover:bg-amber-200">Admin</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="mb-6 space-y-2">
+            {% for category, m in messages %}
+                <div class="px-4 py-3 rounded-lg border text-sm
+                    {% if category == 'success' %} bg-emerald-50 border-emerald-200 text-emerald-800
+                    {% elif category == 'error' %} bg-rose-50 border-rose-200 text-rose-800
+                    {% else %} bg-blue-50 border-blue-200 text-blue-800 {% endif %}">
+                    {{ m }}
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="border-t border-gray-100 py-6 text-center text-gray-400 text-xs">
+    &copy; 2026 TU Berlin Campus Monitoring System.
+</footer>
+
+</body>
+</html>

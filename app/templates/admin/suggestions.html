@@ -1,0 +1,65 @@
+{% extends 'admin/base.html' %}
+{% block title %}Admin · Vorschläge{% endblock %}
+{% block heading %}Änderungsvorschläge{% endblock %}
+
+{% block admin_content %}
+{% if suggestions %}
+<div class="space-y-3">
+    {% for s in suggestions %}
+    <div class="bg-white rounded-xl shadow-sm border {% if s.status == 'pending' %}border-amber-200{% else %}border-gray-100{% endif %} p-4 sm:p-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+            <div>
+                <div class="text-xs text-gray-400 uppercase tracking-wider font-bold">
+                    {% if s.kind == 'new' %}Neues Gebäude{% else %}Bearbeitung{% endif %}
+                </div>
+                <div class="font-bold text-gray-900">
+                    {% if s.kind == 'new' %}
+                        {{ s.payload_parsed.kuerzel or '?' }} — {{ s.payload_parsed.name or '?' }}
+                    {% else %}
+                        {{ s.building_kuerzel or '?' }} — {{ s.building_name or '?' }}
+                    {% endif %}
+                </div>
+                <div class="text-xs text-gray-500 mt-0.5">
+                    Von {{ s.user_email or 'unbekannt' }} · {{ s.created_at[:10] }}
+                </div>
+            </div>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider
+                {% if s.status == 'pending' %} bg-amber-100 text-amber-700
+                {% elif s.status == 'accepted' %} bg-emerald-100 text-emerald-700
+                {% else %} bg-gray-200 text-gray-600 {% endif %}">
+                {{ s.status }}
+            </span>
+        </div>
+
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-sm">
+            {% for k, v in s.payload_parsed.items() %}
+                <div class="flex justify-between sm:block">
+                    <dt class="text-gray-500 text-xs uppercase tracking-wider font-bold">{{ k }}</dt>
+                    <dd class="text-gray-900 break-words">{{ v }}</dd>
+                </div>
+            {% endfor %}
+        </dl>
+
+        {% if s.message %}
+        <div class="mt-3 p-3 bg-gray-50 rounded-lg text-sm text-gray-700 italic">"{{ s.message }}"</div>
+        {% endif %}
+
+        {% if s.status == 'pending' %}
+        <div class="mt-4 flex gap-2 justify-end">
+            <form action="{{ url_for('admin.suggestions_reject', sid=s.id) }}" method="post">
+                <button class="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 hover:bg-gray-50">Ablehnen</button>
+            </form>
+            <form action="{{ url_for('admin.suggestions_accept', sid=s.id) }}" method="post">
+                <button class="px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-500">Übernehmen</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-10 text-center text-gray-500">
+    Keine Vorschläge vorhanden.
+</div>
+{% endif %}
+{% endblock %}

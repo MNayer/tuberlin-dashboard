@@ -4,6 +4,18 @@ services:
     restart: unless-stopped
     volumes:
       - ./data:/app/data/
+    environment:
+      SECRET_KEY: ${SECRET_KEY:-change-me-in-production}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin}
+      APP_BASE_URL: ${APP_BASE_URL:-http://localhost:5000}
+      ALLOWED_EMAIL_DOMAIN: ${ALLOWED_EMAIL_DOMAIN:-tu-berlin.de}
+      REISEKOSTEN_OVERDUE_MONTHS: ${REISEKOSTEN_OVERDUE_MONTHS:-6}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_FROM: ${SMTP_FROM:-no-reply@tu-berlin.de}
+      SMTP_USE_TLS: ${SMTP_USE_TLS:-true}
     networks:
       - caddy_net
 

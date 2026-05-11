@@ -1,0 +1,74 @@
+{% extends 'admin/base.html' %}
+{% block title %}Admin · Gebäude{% endblock %}
+{% block heading %}{% if mode == 'new' %}Neues Gebäude{% else %}Gebäude bearbeiten{% endif %}{% endblock %}
+
+{% block admin_content %}
+<form method="post" class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 sm:p-8 space-y-5 max-w-2xl">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Kürzel <span class="text-rose-500">*</span></label>
+            <input name="kuerzel" required value="{{ building.kuerzel or '' }}"
+                   class="w-full rounded-lg border border-gray-200 px-3 py-2">
+        </div>
+        <div class="sm:col-span-2">
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Name <span class="text-rose-500">*</span></label>
+            <input name="name" required value="{{ building.name or '' }}"
+                   class="w-full rounded-lg border border-gray-200 px-3 py-2">
+        </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Adresse</label>
+            <input name="adresse" value="{{ building.adresse or '' }}"
+                   class="w-full rounded-lg border border-gray-200 px-3 py-2">
+        </div>
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Campus</label>
+            <input name="campus" value="{{ building.campus or '' }}"
+                   class="w-full rounded-lg border border-gray-200 px-3 py-2">
+        </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Status</label>
+            <select name="status" class="w-full rounded-lg border border-gray-200 px-3 py-2 bg-white">
+                {% for opt in ['healthy', 'impaired', 'closed'] %}
+                    <option value="{{ opt }}" {% if building.status == opt %}selected{% endif %}>{{ opt }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Arbeitsplätze</label>
+            <input type="number" name="workplaces" value="{{ building.workplaces if building.workplaces is not none else '' }}"
+                   class="w-full rounded-lg border border-gray-200 px-3 py-2">
+        </div>
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Fläche (m²)</label>
+            <input type="number" step="0.01" name="size_sqm" value="{{ building.size_sqm if building.size_sqm is not none else '' }}"
+                   class="w-full rounded-lg border border-gray-200 px-3 py-2">
+        </div>
+    </div>
+    <div class="flex items-center gap-2">
+        <input type="checkbox" id="is_major" name="is_major" value="1" {% if building.is_major %}checked{% endif %} class="w-4 h-4 rounded">
+        <label for="is_major" class="text-sm">Hauptgebäude (wird in der Standardansicht angezeigt)</label>
+    </div>
+    <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">News-Link</label>
+        <input type="url" name="news_link" value="{{ building.news_link or '' }}"
+               class="w-full rounded-lg border border-gray-200 px-3 py-2" placeholder="https://...">
+    </div>
+    <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Notizen</label>
+        <textarea name="notes" rows="3" class="w-full rounded-lg border border-gray-200 px-3 py-2">{{ building.notes or '' }}</textarea>
+    </div>
+
+    <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-3 pt-2">
+        <a href="{{ url_for('admin.buildings_list') }}"
+           class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 text-sm font-semibold text-center">Abbrechen</a>
+        <button type="submit"
+                class="px-4 py-2 rounded-lg bg-gray-900 text-white text-sm font-semibold hover:bg-gray-700">
+            Speichern
+        </button>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'admin/base.html' %}
+{% block title %}Admin · Reisekosten{% endblock %}
+{% block heading %}Reisekosten verwalten{% endblock %}
+
+{% block admin_content %}
+{% if items %}
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+            <thead class="bg-gray-50 border-b border-gray-200">
+                <tr>
+                    <th class="px-4 py-3 text-xs font-bold text-gray-400 uppercase tracking-wider">User</th>
+                    <th class="px-4 py-3 text-xs font-bold text-gray-400 uppercase tracking-wider">Reise</th>
+                    <th class="px-4 py-3 text-xs font-bold text-gray-400 uppercase tracking-wider hidden md:table-cell">Antrag</th>
+                    <th class="px-4 py-3 text-xs font-bold text-gray-400 uppercase tracking-wider hidden lg:table-cell">Beträge</th>
+                    <th class="px-4 py-3 text-xs font-bold text-gray-400 uppercase tracking-wider">Status</th>
+                    <th class="px-4 py-3 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">Aktionen</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                {% for it in items %}
+                <tr>
+                    <td class="px-4 py-3 text-sm">{{ it.user_email or '—' }}</td>
+                    <td class="px-4 py-3">
+                        <div class="font-bold text-gray-900 leading-tight">{{ it.destination }}</div>
+                        {% if it.purpose %}<div class="text-xs text-gray-500">{{ it.purpose }}</div>{% endif %}
+                    </td>
+                    <td class="px-4 py-3 text-sm hidden md:table-cell">{{ it.antrag_date }}</td>
+                    <td class="px-4 py-3 text-xs hidden lg:table-cell">
+                        <div>geschätzt: {{ '%.2f €' % it.estimated_amount if it.estimated_amount is not none else '—' }}</div>
+                        <div>Abschlag: {{ '%.2f €' % it.advance_amount if it.advance_amount is not none else '—' }}</div>
+                        <div>End: {{ '%.2f €' % it.final_amount if it.final_amount is not none else '—' }}</div>
+                    </td>
+                    <td class="px-4 py-3 text-xs">{{ it.status }}</td>
+                    <td class="px-4 py-3 text-right">
+                        <div class="inline-flex gap-2">
+                            <a href="{{ url_for('admin.reisekosten_edit', rid=it.id) }}"
+                               class="text-blue-600 hover:underline text-sm font-semibold">Bearbeiten</a>
+                            <form action="{{ url_for('admin.reisekosten_delete', rid=it.id) }}" method="post"
+                                  onsubmit="return confirm('Eintrag wirklich löschen?')">
+                                <button class="text-rose-600 hover:underline text-sm font-semibold">Löschen</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-10 text-center text-gray-500">
+    Keine Reisekostenanträge vorhanden.
+</div>
+{% endif %}
+{% endblock %}

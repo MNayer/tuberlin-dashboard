@@ -1,56 +1,38 @@
-from flask import Flask, render_template, request
-import pandas as pd
+import os
 
-app = Flask(__name__)
+from flask import Flask
 
-
-def _to_bool(v):
-    if isinstance(v, bool):
-        return v
-    return str(v).strip().lower() in ("true", "1", "yes", "ja")
-
-
-def get_status_data(major_only: bool):
-    try:
-        df = pd.read_csv('/app/data/status.csv')
-        df['is_major'] = df['is_major'].apply(_to_bool)
-        df['news_link'] = df['news_link'].fillna('')
-
-        view_df = df[df['is_major']] if major_only else df
-        buildings = view_df.to_dict(orient='records')
-
-        total = len(view_df)
-        closed = int((view_df['status'] == 'closed').sum())
-        impaired = int((view_df['status'] == 'impaired').sum())
-
-        overall_status = "healthy"
-        if closed > 0:
-            overall_status = "critical"
-        elif impaired > 0:
-            overall_status = "impaired"
-
-        return buildings, overall_status, total, closed, impaired
-    except Exception as e:
-        print(f"Error loading CSV: {e}")
-        return [], "critical", 0, 0, 0
-
-
-@app.route('/')
-def index():
-    major_only = request.args.get('view', 'major') != 'all'
-    buildings, overall_status, total, closed, impaired = get_status_data(major_only)
-    return render_template('index.html',
-                           buildings=buildings,
-                           overall_status=overall_status,
-                           total=total,
-                           closed=closed,
-                           impaired=impaired,
-                           major_only=major_only)
+import admin
+import auth
+import buildings
+import reisekosten
+from db import close_db, init_db
 
 
 def create_app():
+    app = Flask(__name__)
+    app.secret_key = os.environ.get('SECRET_KEY', 'change-me-in-production')
+    app.config['SESSION_COOKIE_HTTPONLY'] = True
+    app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+
+    init_db()
+
+    app.teardown_appcontext(close_db)
+
+    app.register_blueprint(buildings.bp)
+    app.register_blueprint(reisekosten.bp)
+    app.register_blueprint(auth.bp)
+    app.register_blueprint(admin.bp)
+
+    @app.context_processor
+    def inject_user():
+        return {
+            'current_user_email': auth.current_user()['email'] if auth.current_user() else None,
+            'is_admin': auth.is_admin(),
+        }
+
     return app
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    create_app().run(debug=True)
