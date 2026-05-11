@@ -56,16 +56,11 @@ CREATE TABLE IF NOT EXISTS reisekosten (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     destination TEXT NOT NULL,
-    purpose TEXT,
     antrag_date TEXT NOT NULL,
-    travel_start_date TEXT,
-    travel_end_date TEXT,
-    estimated_amount REAL,
+    amount REAL,
     advance_amount REAL,
-    abrechnung_date TEXT,
-    final_amount REAL,
-    settlement_date TEXT,
-    status TEXT NOT NULL DEFAULT 'antrag_submitted',
+    erstattungsdatum TEXT,
+    status TEXT NOT NULL DEFAULT 'submitted',
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
@@ -103,10 +98,49 @@ def init_db():
     conn = sqlite3.connect(DB_PATH)
     try:
         conn.executescript(SCHEMA)
+        _migrate_reisekosten(conn)
         conn.commit()
         _seed_buildings_if_empty(conn)
     finally:
         conn.close()
+
+
+def _migrate_reisekosten(conn):
+    cols = {row[1] for row in conn.execute("PRAGMA table_info(reisekosten)").fetchall()}
+    legacy_markers = {'estimated_amount', 'final_amount', 'travel_start_date',
+                      'purpose', 'abrechnung_date', 'settlement_date'}
+    if not (cols & legacy_markers):
+        return
+
+    conn.executescript("""
+        CREATE TABLE reisekosten_new (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            destination TEXT NOT NULL,
+            antrag_date TEXT NOT NULL,
+            amount REAL,
+            advance_amount REAL,
+            erstattungsdatum TEXT,
+            status TEXT NOT NULL DEFAULT 'submitted',
+            created_at TEXT NOT NULL,
+            updated_at TEXT NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id)
+        );
+        INSERT INTO reisekosten_new
+            (id, user_id, destination, antrag_date, amount, advance_amount,
+             erstattungsdatum, status, created_at, updated_at)
+        SELECT id, user_id, destination,
+               COALESCE(abrechnung_date, antrag_date),
+               COALESCE(final_amount, estimated_amount),
+               advance_amount,
+               settlement_date,
+               CASE WHEN status = 'settled' THEN 'settled' ELSE 'submitted' END,
+               created_at, updated_at
+        FROM reisekosten;
+        DROP TABLE reisekosten;
+        ALTER TABLE reisekosten_new RENAME TO reisekosten;
+    """)
+    print("[db] migrated reisekosten table to new schema")
 
 
 def _seed_buildings_if_empty(conn):

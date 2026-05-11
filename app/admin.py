@@ -273,18 +273,15 @@ def reisekosten_edit(rid):
     if not row:
         abort(404)
     if request.method == 'POST':
+        erstattungsdatum = (request.form.get('erstattungsdatum') or '').strip() or None
+        explicit_status = request.form.get('status') or None
         data = {
             'destination': (request.form.get('destination') or '').strip(),
-            'purpose': (request.form.get('purpose') or '').strip() or None,
             'antrag_date': (request.form.get('antrag_date') or '').strip(),
-            'travel_start_date': (request.form.get('travel_start_date') or '').strip() or None,
-            'travel_end_date': (request.form.get('travel_end_date') or '').strip() or None,
-            'estimated_amount': _float_or_none(request.form.get('estimated_amount')),
+            'amount': _float_or_none(request.form.get('amount')),
             'advance_amount': _float_or_none(request.form.get('advance_amount')),
-            'abrechnung_date': (request.form.get('abrechnung_date') or '').strip() or None,
-            'final_amount': _float_or_none(request.form.get('final_amount')),
-            'settlement_date': (request.form.get('settlement_date') or '').strip() or None,
-            'status': request.form.get('status') or row['status'],
+            'erstattungsdatum': erstattungsdatum,
+            'status': explicit_status or ('settled' if erstattungsdatum else 'submitted'),
             'updated_at': now_iso(),
             'id': rid,
         }
@@ -294,11 +291,9 @@ def reisekosten_edit(rid):
             return render_template('admin/reisekosten_form.html', item=merged), 400
         db.execute(
             """
-            UPDATE reisekosten SET destination = :destination, purpose = :purpose,
-                antrag_date = :antrag_date, travel_start_date = :travel_start_date,
-                travel_end_date = :travel_end_date, estimated_amount = :estimated_amount,
-                advance_amount = :advance_amount, abrechnung_date = :abrechnung_date,
-                final_amount = :final_amount, settlement_date = :settlement_date,
+            UPDATE reisekosten SET destination = :destination,
+                antrag_date = :antrag_date, amount = :amount,
+                advance_amount = :advance_amount, erstattungsdatum = :erstattungsdatum,
                 status = :status, updated_at = :updated_at
             WHERE id = :id
             """,

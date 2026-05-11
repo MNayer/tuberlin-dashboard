@@ -8,16 +8,18 @@ from db import get_db, now_iso
 bp = Blueprint('buildings', __name__)
 
 
-def _load_buildings(major_only: bool):
+def _load_buildings():
     db = get_db()
-    if major_only:
-        rows = db.execute(
-            "SELECT * FROM buildings WHERE is_major = 1 ORDER BY name"
-        ).fetchall()
-    else:
-        rows = db.execute(
-            "SELECT * FROM buildings ORDER BY is_major DESC, name"
-        ).fetchall()
+    rows = db.execute(
+        """
+        SELECT * FROM buildings
+        ORDER BY CASE status
+                    WHEN 'closed' THEN 0
+                    WHEN 'impaired' THEN 1
+                    ELSE 2
+                 END, name
+        """
+    ).fetchall()
     buildings = [dict(r) for r in rows]
     for b in buildings:
         b['is_major'] = bool(b['is_major'])
@@ -37,8 +39,7 @@ def _load_buildings(major_only: bool):
 
 @bp.route('/')
 def index():
-    major_only = request.args.get('view', 'major') != 'all'
-    buildings, overall, total, closed, impaired = _load_buildings(major_only)
+    buildings, overall, total, closed, impaired = _load_buildings()
     return render_template(
         'buildings.html',
         buildings=buildings,
@@ -46,7 +47,6 @@ def index():
         total=total,
         closed=closed,
         impaired=impaired,
-        major_only=major_only,
     )
 
 
